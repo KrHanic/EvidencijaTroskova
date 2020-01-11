@@ -1,8 +1,10 @@
-package com.example.evidencijatroskova;
+package com.example.evidencijatroskova.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.evidencijatroskova.R;
 
 public class MainActivity extends AppCompatActivity {
 
