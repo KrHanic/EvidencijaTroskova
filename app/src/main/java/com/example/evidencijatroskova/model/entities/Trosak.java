@@ -2,12 +2,17 @@ package com.example.evidencijatroskova.model.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.example.evidencijatroskova.model.DateConverter;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "TROSKOVI")
+@TypeConverters(DateConverter.class)
 public class Trosak {
 
     @PrimaryKey(autoGenerate = true)
@@ -15,13 +20,13 @@ public class Trosak {
 
     private String naziv;
 
-    private BigDecimal iznos;
+    private Double iznos;
 
     private String opis;
 
-    private Calendar datum;
+    private Date datum;
 
-    public Trosak(String naziv, BigDecimal iznos, String opis, Calendar datum) {
+    public Trosak(String naziv, Double iznos, String opis, Date datum) {
         this.naziv = naziv;
         this.iznos = iznos;
         this.opis = opis;
@@ -40,7 +45,7 @@ public class Trosak {
         return naziv;
     }
 
-    public BigDecimal getIznos() {
+    public Double getIznos() {
         return iznos;
     }
 
@@ -48,7 +53,7 @@ public class Trosak {
         return opis;
     }
 
-    public Calendar getDatum() {
+    public Date getDatum() {
         return datum;
     }
 }
