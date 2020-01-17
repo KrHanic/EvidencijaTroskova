@@ -21,10 +21,25 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import static android.content.ContentValues.TAG;
 
-public class DodavanjeTroskaFragment extends Fragment {
+public class DodavanjeUredivanjeTroskaFragment extends Fragment {
+    public static final String ID = "id";
+    public static final String NAZIV = "naziv";
+    public static final String IZNOS = "iznos";
+    public static final String OPIS = "opis";
     private TextInputEditText etNaziv;
     private TextInputEditText etIznos;
     private TextInputEditText etOpis;
+
+    public static DodavanjeUredivanjeTroskaFragment newInstance(int id, String naziv, double iznos, String opis){
+        DodavanjeUredivanjeTroskaFragment fragment = new DodavanjeUredivanjeTroskaFragment();
+        Bundle trosakBundle = new Bundle();
+        trosakBundle.putInt(ID, id);
+        trosakBundle.putString(NAZIV, naziv);
+        trosakBundle.putDouble(IZNOS, iznos);
+        trosakBundle.putString(OPIS, opis);
+        fragment.setArguments(trosakBundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -50,7 +65,15 @@ public class DodavanjeTroskaFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        getActivity().setTitle("Dodaj Trošak");
+        if(getArguments() != null) {
+            getActivity().setTitle("Uredi Trošak");
+            etNaziv.setText(getArguments().getString(NAZIV));
+            etIznos.setText(String.valueOf(getArguments().getDouble(IZNOS)));
+            etOpis.setText(getArguments().getString(OPIS));
+        }else{
+            getActivity().setTitle("Dodaj Trošak");
+        }
+
     }
 
     private void saveTrosak(){

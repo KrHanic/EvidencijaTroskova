@@ -20,6 +20,7 @@ import java.util.List;
 
 public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAdapter.TrosakHolder> {
     private List<Trosak> troskovi = new ArrayList<>();
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -65,6 +66,25 @@ public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAd
             tvNaziv = itemView.findViewById(R.id.tvNazivValue);
             tvIznos = itemView.findViewById(R.id.tvIznosValue);
             tvOpis = itemView.findViewById(R.id.tvOpisValue);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if(listener != null && position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(troskovi.get(position));
+                    }
+                }
+            });
         }
     }
+
+    public interface OnItemClickListener{
+        void onItemClick(Trosak trosak);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener listener){
+        this.listener = listener;
+    }
+
 }
