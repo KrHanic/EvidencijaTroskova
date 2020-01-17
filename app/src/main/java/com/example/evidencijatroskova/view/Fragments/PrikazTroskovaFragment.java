@@ -59,6 +59,7 @@ public class PrikazTroskovaFragment extends Fragment {
 
             Trosak trosak = new Trosak(naziv, iznos, opis, datum);
 
+            trosakViewModel = ViewModelProviders.of(this).get(TrosakViewModel.class);
             trosakViewModel.insert(trosak);
         }
 
@@ -68,7 +69,11 @@ public class PrikazTroskovaFragment extends Fragment {
         btnAddTrosak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO open dodavanjeFragment
+                DodavanjeTroskaFragment nextFrag= new DodavanjeTroskaFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.container, nextFrag, "findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

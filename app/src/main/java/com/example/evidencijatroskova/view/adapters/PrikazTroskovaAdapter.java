@@ -11,7 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.evidencijatroskova.R;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAdapter.TrosakHolder> {
@@ -28,9 +32,14 @@ public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAd
     @Override
     public void onBindViewHolder(@NonNull TrosakHolder holder, int position) {
         Trosak currentTrosak = troskovi.get(position);
-        holder.tvDatum.setText((CharSequence) currentTrosak.getDatum());
+        Date date = currentTrosak.getDatum();
+        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
+        String strDate = dateFormat.format(date);
+        DecimalFormat df = new DecimalFormat("0.00");
+        String result = df.format(currentTrosak.getIznos()) + " kn";
+        holder.tvDatum.setText(strDate);
         holder.tvNaziv.setText(currentTrosak.getNaziv());
-        holder.tvIznos.setText(String.valueOf(currentTrosak.getIznos()));
+        holder.tvIznos.setText(result);
         holder.tvOpis.setText(currentTrosak.getOpis());
     }
 

@@ -1,6 +1,7 @@
 package com.example.evidencijatroskova.view.Fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +18,8 @@ import androidx.fragment.app.Fragment;
 import com.example.evidencijatroskova.R;
 import com.example.evidencijatroskova.view.adapters.PrikazTroskovaAdapter;
 import com.google.android.material.textfield.TextInputEditText;
+
+import static android.content.ContentValues.TAG;
 
 public class DodavanjeTroskaFragment extends Fragment {
     private TextInputEditText etNaziv;
@@ -35,6 +38,12 @@ public class DodavanjeTroskaFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -66,6 +75,10 @@ public class DodavanjeTroskaFragment extends Fragment {
         }
 
         PrikazTroskovaFragment fragment = PrikazTroskovaFragment.newInstance(naziv, iznos, opis);
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
     }
 
 
@@ -79,6 +92,7 @@ public class DodavanjeTroskaFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.saveTrosak:
+                Log.d(TAG, "onOptionsItemSelected: save()");
                 saveTrosak();
                 return true;
             default:
