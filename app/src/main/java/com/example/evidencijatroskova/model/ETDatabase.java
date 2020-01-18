@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.evidencijatroskova.model.DAOs.TrosakDao;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
-@Database(entities = {Trosak.class}, version = 1)
+@Database(entities = {Trosak.class}, version = 1, exportSchema = false)
 public abstract class ETDatabase extends RoomDatabase {
 
     private static ETDatabase instance;
