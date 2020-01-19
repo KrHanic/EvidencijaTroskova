@@ -18,6 +18,9 @@ public interface TrosakDao {
     @Update
     void update(Trosak trosak);
 
+    @Query("DELETE FROM TROSKOVI")
+    void nukeTable();
+
     @Query("SELECT * FROM TROSKOVI ORDER BY datum DESC")
     LiveData<List<Trosak>> getAllTroskove();
 }

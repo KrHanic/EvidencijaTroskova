@@ -13,13 +13,19 @@ import android.widget.Toast;
 import com.example.evidencijatroskova.R;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class AddTrosakActivity extends AppCompatActivity {
+import java.util.Date;
+
+public class AddEditTrosakActivity extends AppCompatActivity {
+    public static final String EXTRA_ID =
+            "com.example.evidencijatroskova.view.EXTRA_ID";
     public static final String EXTRA_NAZIV =
             "com.example.evidencijatroskova.view.EXTRA_NAZIV";
     public static final String EXTRA_IZNOS =
             "com.example.evidencijatroskova.view.EXTRA_IZNOS";
     public static final String EXTRA_OPIS =
             "com.example.evidencijatroskova.view.EXTRA_OPIS";
+    public static final String EXTRA_DATUM =
+            "com.example.evidencijatroskova.view.EXTRA_DATUM";
 
     private TextInputEditText etNaziv;
     private TextInputEditText etIznos;
@@ -35,7 +41,17 @@ public class AddTrosakActivity extends AppCompatActivity {
         etOpis = findViewById(R.id.etOpis);
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
-        setTitle("Dodaj trošak");
+
+        Intent intent = getIntent();
+
+        if(intent.hasExtra(EXTRA_ID)){
+            setTitle("Uredi trošak");
+            etNaziv.setText(intent.getStringExtra(EXTRA_NAZIV));
+            etIznos.setText(String.valueOf(intent.getDoubleExtra(EXTRA_IZNOS, 0)));
+            etOpis.setText(intent.getStringExtra(EXTRA_OPIS));
+        }else{
+            setTitle("Dodaj trošak");
+        }
     }
 
     private void saveTrosak(){
@@ -60,6 +76,13 @@ public class AddTrosakActivity extends AppCompatActivity {
         data.putExtra(EXTRA_NAZIV, sNaziv);
         data.putExtra(EXTRA_IZNOS, dIznos);
         data.putExtra(EXTRA_OPIS, sOpis);
+
+        int id = getIntent().getIntExtra(EXTRA_ID, -1);
+        Date datum = (Date)getIntent().getSerializableExtra(EXTRA_DATUM);
+        if(id != -1){
+            data.putExtra(EXTRA_ID, id);
+            data.putExtra(EXTRA_DATUM, datum);
+        }
 
         setResult(RESULT_OK, data);
         finish();

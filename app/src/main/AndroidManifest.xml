@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.AddTrosakActivity"
+        <activity android:name=".view.AddEditTrosakActivity"
             android:parentActivityName=".view.TroskoviActivity"></activity>
         <activity android:name=".view.TroskoviActivity"
             android:launchMode="singleTop">

@@ -6,6 +6,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.evidencijatroskova.R;
@@ -14,13 +16,30 @@ import com.example.evidencijatroskova.model.entities.Trosak;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAdapter.TrosakHolder> {
-    private List<Trosak> troskovi = new ArrayList<>();
+public class PrikazTroskovaAdapter extends ListAdapter<Trosak,PrikazTroskovaAdapter.TrosakHolder> {
     private OnItemClickListener listener;
+
+    public PrikazTroskovaAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    private static final DiffUtil.ItemCallback<Trosak> DIFF_CALLBACK = new DiffUtil.ItemCallback<Trosak>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Trosak oldItem, @NonNull Trosak newItem) {
+            return oldItem.getIdTroska() == newItem.getIdTroska();
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull Trosak oldItem, @NonNull Trosak newItem) {
+            boolean nazivIsSame = oldItem.getNaziv().equals(newItem.getNaziv());
+            boolean iznosIsSame = oldItem.getIznos().equals(newItem.getIznos());
+            boolean opisIsSame = oldItem.getOpis().equals(newItem.getOpis());
+            return nazivIsSame && iznosIsSame && opisIsSame;
+        }
+    };
 
     @NonNull
     @Override
@@ -32,7 +51,7 @@ public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAd
 
     @Override
     public void onBindViewHolder(@NonNull TrosakHolder holder, int position) {
-        Trosak currentTrosak = troskovi.get(position);
+        Trosak currentTrosak = getItem(position);
         Date date = currentTrosak.getDatum();
         DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy.");
         String strDate = dateFormat.format(date);
@@ -42,16 +61,6 @@ public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAd
         holder.tvNaziv.setText(currentTrosak.getNaziv());
         holder.tvIznos.setText(result);
         holder.tvOpis.setText(currentTrosak.getOpis());
-    }
-
-    @Override
-    public int getItemCount() {
-        return troskovi.size();
-    }
-
-    public void setTroskovi(List<Trosak> troskovi){
-        this.troskovi = troskovi;
-        notifyDataSetChanged();
     }
 
     class TrosakHolder extends RecyclerView.ViewHolder{
@@ -72,7 +81,7 @@ public class PrikazTroskovaAdapter extends RecyclerView.Adapter<PrikazTroskovaAd
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     if(listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(troskovi.get(position));
+                        listener.onItemClick(getItem(position));
                     }
                 }
             });

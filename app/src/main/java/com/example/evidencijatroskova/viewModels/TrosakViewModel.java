@@ -29,6 +29,10 @@ public class TrosakViewModel extends AndroidViewModel {
         repository.update(trosak);
     }
 
+    public void nukeTable(){
+        repository.nukeTable();
+    }
+
     public LiveData<List<Trosak>> getAllTroskovi() {
         return allTroskovi;
     }
