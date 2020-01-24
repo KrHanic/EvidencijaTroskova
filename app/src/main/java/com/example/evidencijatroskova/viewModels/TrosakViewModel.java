@@ -22,15 +22,15 @@ public class TrosakViewModel extends AndroidViewModel {
     }
 
     public void insert(Trosak trosak){
-        repository.insert(trosak);
+        repository.insertTrosak(trosak);
     }
 
     public void update(Trosak trosak){
-        repository.update(trosak);
+        repository.updateTrosak(trosak);
     }
 
     public void nukeTable(){
-        repository.nukeTable();
+        repository.nukeTableTrosak();
     }
 
     public LiveData<List<Trosak>> getAllTroskovi() {

@@ -17,7 +17,6 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class PrikazTroskovaAdapter extends ListAdapter<Trosak,PrikazTroskovaAdapter.TrosakHolder> {
     private OnItemClickListener listener;

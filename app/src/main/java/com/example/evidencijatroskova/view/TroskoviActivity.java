@@ -22,6 +22,8 @@ import com.example.evidencijatroskova.view.adapters.PrikazTroskovaAdapter;
 import com.example.evidencijatroskova.viewModels.TrosakViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -29,6 +31,8 @@ import java.util.List;
 public class TroskoviActivity extends AppCompatActivity {
     public static final int ADD_TROSAK_REQUEST = 1;
     public static final int EDIT_TROSAK_REQUEST = 2;
+    public static final String EXTRA_DATUM =
+            "com.example.evidencijatroskova.view.EXTRA_DATUM";
 
     private TrosakViewModel trosakViewModel;
 
@@ -53,6 +57,13 @@ public class TroskoviActivity extends AppCompatActivity {
         final PrikazTroskovaAdapter prikazTroskovaAdapter = new PrikazTroskovaAdapter();
         rvTroskovi.setAdapter(prikazTroskovaAdapter);
 
+        Intent intent = getIntent();
+        if(intent.hasExtra(EXTRA_DATUM)){
+            Date sentMjesec = (Date)intent.getSerializableExtra(EXTRA_DATUM);
+
+            String mjesec = "0" +(sentMjesec.getMonth() + 1) + ". " + (1900 + sentMjesec.getYear())+ ".";
+            setTitle("Troškovi za " + mjesec);
+        }
         trosakViewModel = ViewModelProviders.of(this).get(TrosakViewModel.class);
         trosakViewModel.getAllTroskovi().observe(this, new Observer<List<Trosak>>() {
             @Override

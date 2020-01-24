@@ -5,7 +5,11 @@ import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.evidencijatroskova.model.DAOs.BudgetDao;
+import com.example.evidencijatroskova.model.DAOs.MjesecDao;
 import com.example.evidencijatroskova.model.DAOs.TrosakDao;
+import com.example.evidencijatroskova.model.entities.Budget;
+import com.example.evidencijatroskova.model.entities.Mjesec;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
 import java.util.List;
@@ -13,27 +17,51 @@ import java.util.List;
 public class ETRepository {
     private TrosakDao trosakDao;
     private LiveData<List<Trosak>> allTroskovi;
+    private BudgetDao budgetDao;
+    private LiveData<List<Budget>> allBudgeti;
+    private MjesecDao mjesecDao;
+    private LiveData<List<Mjesec>> allMjeseci;
 
     public ETRepository(Application application){
         ETDatabase database = ETDatabase.getInstance(application);
         trosakDao = database.trosakDao();
         allTroskovi = trosakDao.getAllTroskove();
+        budgetDao = database.budgetDao();
+        allBudgeti = budgetDao.getAllBudgete();
+        mjesecDao = database.mjesecDao();
+        allMjeseci = mjesecDao.getAllMjeseci();
     }
 
-    public void insert(Trosak trosak){
+    public void insertTrosak(Trosak trosak){
         new InsertTrosakAsyncTask(trosakDao).execute(trosak);
     }
 
-    public void update(Trosak trosak){
+    public void updateTrosak(Trosak trosak){
         new UpdateTrosakAsyncTask(trosakDao).execute(trosak);
     }
 
-    public void nukeTable(){
+    public void nukeTableTrosak(){
         new NukeTableAsyncTask(trosakDao).execute();
     }
 
     public LiveData<List<Trosak>> getAllTroskovi() {
         return allTroskovi;
+    }
+
+    public void insertBudget(Budget budget){
+        new InsertBudgetAsyncTask(budgetDao).execute(budget);
+    }
+
+    public void updateBudget(Budget budget){
+        new UpdateBudgetAsyncTask(budgetDao).execute(budget);
+    }
+
+    public LiveData<List<Budget>> getAllBudgeti() {
+        return allBudgeti;
+    }
+
+    public LiveData<List<Mjesec>> getAllMjeseci() {
+        return allMjeseci;
     }
 
     private static class InsertTrosakAsyncTask extends AsyncTask<Trosak, Void, Void>{
@@ -74,6 +102,34 @@ public class ETRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             trosakDao.nukeTable();
+            return null;
+        }
+    }
+
+    private static class InsertBudgetAsyncTask extends  AsyncTask<Budget, Void, Void>{
+        private BudgetDao budgetDao;
+
+        private InsertBudgetAsyncTask(BudgetDao budgetDao){
+            this.budgetDao = budgetDao;
+        }
+
+        @Override
+        protected Void doInBackground(Budget... budgets) {
+            budgetDao.insert(budgets[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateBudgetAsyncTask extends  AsyncTask<Budget, Void, Void>{
+        private BudgetDao budgetDao;
+
+        private UpdateBudgetAsyncTask(BudgetDao budgetDao){
+            this.budgetDao = budgetDao;
+        }
+
+        @Override
+        protected Void doInBackground(Budget... budgets) {
+            budgetDao.update(budgets[0]);
             return null;
         }
     }

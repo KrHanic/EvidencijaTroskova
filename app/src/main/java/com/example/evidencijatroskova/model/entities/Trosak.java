@@ -2,13 +2,10 @@ package com.example.evidencijatroskova.model.entities;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
 import com.example.evidencijatroskova.model.DateConverter;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity(tableName = "TROSKOVI")
