@@ -40,8 +40,24 @@ public class TroskoviActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_troskovi);
+        final Date sentMjesec;
 
         FloatingActionButton btnAddTrosak = findViewById(R.id.btnAddTrosak);
+
+        Intent intent = getIntent();
+        sentMjesec = (Date)intent.getSerializableExtra(EXTRA_DATUM);
+
+        String mjesec = "0" +(sentMjesec.getMonth() + 1) + ". " + (1900 + sentMjesec.getYear())+ ".";
+        setTitle("Troškovi za " + mjesec);
+
+        if ((sentMjesec.getMonth() != new Date().getMonth()) ||  (sentMjesec.getYear() != new Date().getYear())){
+            btnAddTrosak.setVisibility(View.GONE);
+        }else {
+            btnAddTrosak.setVisibility(View.VISIBLE);
+        }
+
+
+
         btnAddTrosak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,18 +73,13 @@ public class TroskoviActivity extends AppCompatActivity {
         final PrikazTroskovaAdapter prikazTroskovaAdapter = new PrikazTroskovaAdapter();
         rvTroskovi.setAdapter(prikazTroskovaAdapter);
 
-        Intent intent = getIntent();
-        if(intent.hasExtra(EXTRA_DATUM)){
-            Date sentMjesec = (Date)intent.getSerializableExtra(EXTRA_DATUM);
 
-            String mjesec = "0" +(sentMjesec.getMonth() + 1) + ". " + (1900 + sentMjesec.getYear())+ ".";
-            setTitle("Troškovi za " + mjesec);
-        }
         trosakViewModel = ViewModelProviders.of(this).get(TrosakViewModel.class);
         trosakViewModel.getAllTroskovi().observe(this, new Observer<List<Trosak>>() {
             @Override
             public void onChanged(List<Trosak> trosaks) {
-                prikazTroskovaAdapter.submitList(trosaks);
+                List<Trosak> troskoviMjeseca = trosakViewModel.getTroskoviByMonth(sentMjesec.getMonth());
+                prikazTroskovaAdapter.submitList(troskoviMjeseca);
             }
         });
 

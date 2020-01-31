@@ -13,7 +13,8 @@ import java.util.List;
 public interface MjesecDao {
 
     @Query("SELECT datum, iznos, " +
-            "(SELECT SUM(iznos) FROM TROSKOVI WHERE (STRFTIME('%m', TROSKOVI.datum)) = (STRFTIME('%m', datum))) AS potroseno " +
-            "FROM BUDGETI")
+            "(SELECT SUM(iznos) FROM TROSKOVI WHERE (STRFTIME('%m', BUDGETI.datum/1000, 'unixepoch'))" +
+            " = (STRFTIME('%m', TROSKOVI.datum/1000, 'unixepoch'))) AS potroseno " +
+            "FROM BUDGETI ORDER BY datum DESC")
     LiveData<List<Mjesec>> getAllMjeseci();
 }

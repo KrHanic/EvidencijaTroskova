@@ -12,9 +12,11 @@ import com.example.evidencijatroskova.model.entities.Budget;
 import com.example.evidencijatroskova.model.entities.Mjesec;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
+import java.util.Date;
 import java.util.List;
 
 public class ETRepository {
+    ETDatabase database;
     private TrosakDao trosakDao;
     private LiveData<List<Trosak>> allTroskovi;
     private BudgetDao budgetDao;
@@ -23,7 +25,7 @@ public class ETRepository {
     private LiveData<List<Mjesec>> allMjeseci;
 
     public ETRepository(Application application){
-        ETDatabase database = ETDatabase.getInstance(application);
+        database = ETDatabase.getInstance(application);
         trosakDao = database.trosakDao();
         allTroskovi = trosakDao.getAllTroskove();
         budgetDao = database.budgetDao();
@@ -46,6 +48,12 @@ public class ETRepository {
 
     public LiveData<List<Trosak>> getAllTroskovi() {
         return allTroskovi;
+    }
+
+    public List<Trosak> getTroskoviByMonth(int mjesec){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthAsyncTask(params).execute(params);
+
     }
 
     public void insertBudget(Budget budget){
@@ -131,6 +139,35 @@ public class ETRepository {
         protected Void doInBackground(Budget... budgets) {
             budgetDao.update(budgets[0]);
             return null;
+        }
+    }
+
+    private static class TroskoviByMonthParams {
+        TrosakDao trosakDao;
+        int mjesec;
+
+        TroskoviByMonthParams(TrosakDao trosakDao, int date) {
+            this.trosakDao = trosakDao;
+            this.mjesec = date;
+        }
+    }
+
+    private static class GetTroskoviByMonthAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+
+        private GetTroskoviByMonthAsyncTask(TroskoviByMonthParams params){
+            this.trosakDao = params.trosakDao;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+
+            return trosakDao.getTroskoviByMonth(troskoviByMonthParams[0].mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
         }
     }
 }

@@ -23,4 +23,7 @@ public interface TrosakDao {
 
     @Query("SELECT * FROM TROSKOVI ORDER BY datum DESC")
     LiveData<List<Trosak>> getAllTroskove();
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec")
+    List<Trosak> getTroskoviByMonth(int mjesec);
 }

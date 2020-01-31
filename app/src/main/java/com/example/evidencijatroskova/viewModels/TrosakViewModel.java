@@ -9,11 +9,13 @@ import androidx.lifecycle.LiveData;
 import com.example.evidencijatroskova.model.ETRepository;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
+import java.util.Date;
 import java.util.List;
 
 public class TrosakViewModel extends AndroidViewModel {
     private ETRepository repository;
     private LiveData<List<Trosak>> allTroskovi;
+    private List<Trosak> troskoviMjeseca;
 
     public TrosakViewModel(@NonNull Application application) {
         super(application);
@@ -35,5 +37,10 @@ public class TrosakViewModel extends AndroidViewModel {
 
     public LiveData<List<Trosak>> getAllTroskovi() {
         return allTroskovi;
+    }
+
+    public List<Trosak> getTroskoviByMonth(int mjesec){
+        troskoviMjeseca = repository.getTroskoviByMonth(mjesec);
+        return troskoviMjeseca;
     }
 }
