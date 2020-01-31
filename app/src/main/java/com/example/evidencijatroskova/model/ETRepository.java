@@ -12,6 +12,7 @@ import com.example.evidencijatroskova.model.entities.Budget;
 import com.example.evidencijatroskova.model.entities.Mjesec;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -50,10 +51,9 @@ public class ETRepository {
         return allTroskovi;
     }
 
-    public List<Trosak> getTroskoviByMonth(int mjesec){
+    public void getTroskoviByMonth(int mjesec, OnResult<List<Trosak>> onResultListener){
         TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
-        new GetTroskoviByMonthAsyncTask(params).execute(params);
-
+        new GetTroskoviByMonthAsyncTask(params,onResultListener).execute(params);
     }
 
     public void insertBudget(Budget budget){
@@ -154,20 +154,22 @@ public class ETRepository {
 
     private static class GetTroskoviByMonthAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
         private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
 
-        private GetTroskoviByMonthAsyncTask(TroskoviByMonthParams params){
+        private GetTroskoviByMonthAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
             this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
         }
 
         @Override
         protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
-
-            return trosakDao.getTroskoviByMonth(troskoviByMonthParams[0].mjesec);
+            return trosakDao.getTroskoviByMonth(troskoviByMonthParams[0].mjesec +1);
         }
 
         @Override
         protected void onPostExecute(List<Trosak> trosaks) {
             super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
         }
     }
 }

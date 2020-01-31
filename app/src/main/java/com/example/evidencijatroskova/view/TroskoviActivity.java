@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.evidencijatroskova.R;
+import com.example.evidencijatroskova.model.OnResult;
 import com.example.evidencijatroskova.model.entities.Trosak;
 import com.example.evidencijatroskova.view.adapters.PrikazTroskovaAdapter;
 import com.example.evidencijatroskova.viewModels.TrosakViewModel;
@@ -78,8 +79,12 @@ public class TroskoviActivity extends AppCompatActivity {
         trosakViewModel.getAllTroskovi().observe(this, new Observer<List<Trosak>>() {
             @Override
             public void onChanged(List<Trosak> trosaks) {
-                List<Trosak> troskoviMjeseca = trosakViewModel.getTroskoviByMonth(sentMjesec.getMonth());
-                prikazTroskovaAdapter.submitList(troskoviMjeseca);
+                trosakViewModel.getTroskoviByMonth(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
             }
         });
 
