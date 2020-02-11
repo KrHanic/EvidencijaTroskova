@@ -25,5 +25,5 @@ public interface TrosakDao {
     LiveData<List<Trosak>> getAllTroskove();
 
     @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec")
-    List<Trosak> getTroskoviByMonth(int mjesec);
+    List<Trosak> getTroskoviByMonth(String mjesec);
 }

@@ -163,7 +163,13 @@ public class ETRepository {
 
         @Override
         protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
-            return trosakDao.getTroskoviByMonth(troskoviByMonthParams[0].mjesec +1);
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonth(mjesec);
         }
 
         @Override

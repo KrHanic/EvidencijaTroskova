@@ -104,6 +104,8 @@ public class TroskoviActivity extends AppCompatActivity {
                     intent.putExtra(AddEditTrosakActivity.EXTRA_OPIS, trosak.getOpis());
                     intent.putExtra(AddEditTrosakActivity.EXTRA_DATUM, trosak.getDatum());
                     startActivityForResult(intent, EDIT_TROSAK_REQUEST);
+                }else{
+                    Toast.makeText(TroskoviActivity.this, "Trošak je stariji od 7 dana.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
