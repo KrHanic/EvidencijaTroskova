@@ -43,8 +43,8 @@ public class ETRepository {
         new UpdateTrosakAsyncTask(trosakDao).execute(trosak);
     }
 
-    public void nukeTableTrosak(){
-        new NukeTableAsyncTask(trosakDao).execute();
+    public void deleteTrosak(Trosak trosak){
+        new deleteTrosakAsyncTask(trosakDao).execute(trosak);
     }
 
     public LiveData<List<Trosak>> getAllTroskovi() {
@@ -125,16 +125,16 @@ public class ETRepository {
         }
     }
 
-    private static class NukeTableAsyncTask extends AsyncTask<Void, Void, Void>{
+    private static class deleteTrosakAsyncTask extends AsyncTask<Trosak, Void, Void>{
         private TrosakDao trosakDao;
 
-        private NukeTableAsyncTask(TrosakDao trosakDao){
+        private deleteTrosakAsyncTask(TrosakDao trosakDao){
             this.trosakDao = trosakDao;
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
-            trosakDao.nukeTable();
+        protected Void doInBackground(Trosak... trosaks) {
+            trosakDao.deleteTrosak(trosaks[0]);
             return null;
         }
     }

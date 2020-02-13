@@ -2,6 +2,7 @@ package com.example.evidencijatroskova.model.DAOs;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -18,8 +19,8 @@ public interface TrosakDao {
     @Update
     void update(Trosak trosak);
 
-    @Query("DELETE FROM TROSKOVI")
-    void nukeTable();
+    @Delete
+    void deleteTrosak(Trosak trosak);
 
     @Query("SELECT * FROM TROSKOVI ORDER BY datum DESC")
     LiveData<List<Trosak>> getAllTroskove();

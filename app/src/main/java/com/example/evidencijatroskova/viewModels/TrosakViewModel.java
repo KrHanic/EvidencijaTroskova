@@ -32,8 +32,8 @@ public class TrosakViewModel extends AndroidViewModel {
         repository.updateTrosak(trosak);
     }
 
-    public void nukeTable(){
-        repository.nukeTableTrosak();
+    public void delete(Trosak trosak){
+        repository.deleteTrosak(trosak);
     }
 
     public LiveData<List<Trosak>> getAllTroskovi() {

@@ -95,4 +95,7 @@ public class PrikazTroskovaAdapter extends ListAdapter<Trosak,PrikazTroskovaAdap
         this.listener = listener;
     }
 
+    public Trosak getTrosakAt(int position){
+        return getItem(position);
+    }
 }

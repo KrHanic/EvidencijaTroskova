@@ -5,6 +5,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -110,6 +111,19 @@ public class TroskoviActivity extends AppCompatActivity {
                 }
             }
         });
+
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                trosakViewModel.delete(prikazTroskovaAdapter.getTrosakAt(viewHolder.getAdapterPosition()));
+                Toast.makeText(TroskoviActivity.this, "Trošak obrisan.", Toast.LENGTH_SHORT).show();
+            }
+        }).attachToRecyclerView(rvTroskovi);
     }
 
     @Override
