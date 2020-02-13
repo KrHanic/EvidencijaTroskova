@@ -40,7 +40,27 @@ public class TrosakViewModel extends AndroidViewModel {
         return allTroskovi;
     }
 
-    public void getTroskoviByMonth(int mjesec, OnResult<List<Trosak>> onResultListener){
-        repository.getTroskoviByMonth(mjesec, onResultListener);
+    public void getTroskoviByMonthSortedByDateDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByDateDesc(mjesec, onResultListener);
+    }
+
+    public void getTroskoviByMonthSortedByDateAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByDateAsc(mjesec, onResultListener);
+    }
+
+    public void getTroskoviByMonthSortedByIznosDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByIznosDesc(mjesec, onResultListener);
+    }
+
+    public void getTroskoviByMonthSortedByIznosAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByIznosAsc(mjesec, onResultListener);
+    }
+
+    public void getTroskoviByMonthSortedByNazivDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByNazivDesc(mjesec, onResultListener);
+    }
+
+    public void getTroskoviByMonthSortedByNazivAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        repository.getTroskoviByMonthSortedByNazivAsc(mjesec, onResultListener);
     }
 }

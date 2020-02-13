@@ -15,7 +15,7 @@
             android:id="@+id/etNaziv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Naziv"
+            android:hint="@string/naziv"
             android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -26,7 +26,7 @@
             android:id="@+id/etIznos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Iznos"
+            android:hint="@string/iznos"
             android:inputType="numberDecimal"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,7 +37,7 @@
             android:id="@+id/etOpis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Opis"
+            android:hint="@string/opis"
             android:inputType="textMultiLine"/>
     </com.google.android.material.textfield.TextInputLayout>
 

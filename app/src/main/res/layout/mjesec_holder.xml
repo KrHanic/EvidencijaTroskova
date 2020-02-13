@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMjesec"
         app:layout_constraintEnd_toStartOf="@+id/tvDostupno"
-        android:text="Dostupno: "/>
+        android:text="@string/dostupno"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvDostupno"
@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/lblDostupno"
         app:layout_constraintTop_toBottomOf="@+id/tvMjesec"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/lblPotroseno"
@@ -39,7 +40,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lblDostupno"
         app:layout_constraintEnd_toStartOf="@+id/tvPotroseno"
-        android:text="Potrošeno: "/>
+        android:text="@string/potroseno"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/tvPotroseno"
@@ -47,7 +48,14 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toEndOf="@+id/lblDostupno"
         app:layout_constraintTop_toBottomOf="@+id/tvDostupno"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="10dp"/>
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPotroseno"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

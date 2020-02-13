@@ -11,6 +11,7 @@ import com.example.evidencijatroskova.R;
 import com.example.evidencijatroskova.model.entities.Mjesec;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,11 +34,16 @@ public class PrikazMjeseciAdapter extends RecyclerView.Adapter<PrikazMjeseciAdap
         String mjesec = "0" +(currentMjesec.getDatum().getMonth() + 1) + ". " + (1900 + currentMjesec.getDatum().getYear())+ ".";
         holder.tvMjesec.setText(mjesec);
         if( currentMjesec.getPotroseno() != null) {
-            holder.tvDostupno.setText(String.valueOf(currentMjesec.getIznos() - currentMjesec.getPotroseno()));
-            holder.tvPotroseno.setText(String.valueOf(currentMjesec.getPotroseno()));
+            DecimalFormat df = new DecimalFormat("0.00");
+            String dostupno = df.format(currentMjesec.getIznos() - currentMjesec.getPotroseno()) + " kn";
+            String potroseno = df.format(currentMjesec.getPotroseno()) + " kn";
+            holder.tvDostupno.setText(dostupno);
+            holder.tvPotroseno.setText(potroseno);
         }else{
-            holder.tvDostupno.setText(String.valueOf(currentMjesec.getIznos()));
-            holder.tvPotroseno.setText("0");
+            DecimalFormat df = new DecimalFormat("0.00");
+            String iznos = df.format(currentMjesec.getIznos()) + " kn";
+            holder.tvDostupno.setText(iznos);
+            holder.tvPotroseno.setText("0 kn");
         }
     }
 

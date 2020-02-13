@@ -3,8 +3,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/btnDeleteAllTroskove"
-        android:title="Obriši sve troškove"
+        android:title="@string/sortiraj"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortDateDesc"
+        android:title="@string/datum_silazno"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortDateAsc"
+        android:title="@string/datum_uzlazno"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortIznosDesc"
+        android:title="@string/iznos_silazno"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortIznosAsc"
+        android:title="@string/iznos_uzlazno"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortNazivDesc"
+        android:title="@string/naziv_silazno"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/btnSortNazivAsc"
+        android:title="@string/naziv_uzlazno"
         app:showAsAction="never"/>
 
 </menu>

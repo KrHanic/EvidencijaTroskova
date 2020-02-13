@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.evidencijatroskova.R;
@@ -21,6 +22,7 @@ import com.example.evidencijatroskova.model.entities.Mjesec;
 import com.example.evidencijatroskova.model.entities.Trosak;
 import com.example.evidencijatroskova.view.adapters.PrikazMjeseciAdapter;
 import com.example.evidencijatroskova.viewModels.MjesecViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -39,6 +41,8 @@ public class MjeseciActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mjeseci);
+
+        final FloatingActionButton btnAddEditTrosak = findViewById(R.id.btnAddEditBudget);
 
         RecyclerView rvMjeseci = findViewById(R.id.rvMjeseci);
         rvMjeseci.setLayoutManager(new LinearLayoutManager(this));
@@ -71,10 +75,31 @@ public class MjeseciActivity extends AppCompatActivity {
                     latestBudget = budgets.get(0);
                     Date currentDate = new Date();
                     if (budgets.get(0).getDatum().getMonth() == currentDate.getMonth()) {
+                        btnAddEditTrosak.setImageResource(R.drawable.ic_edit);
                         BUDGET_REQUEST = 2;
                     } else {
+                        btnAddEditTrosak.setImageResource(R.drawable.ic_add);
                         BUDGET_REQUEST = 1;
                     }
+                }else{
+                    btnAddEditTrosak.setImageResource(R.drawable.ic_add);
+                    BUDGET_REQUEST = 1;
+                }
+            }
+        });
+
+        btnAddEditTrosak.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(BUDGET_REQUEST == ADD_BUDGET_REQUEST){
+                    Intent intent = new Intent(MjeseciActivity.this, AddEditBudgetActivity.class);
+                    startActivityForResult(intent, ADD_BUDGET_REQUEST);
+                }else{
+                    Intent intent = new Intent(MjeseciActivity.this, AddEditBudgetActivity.class);
+                    intent.putExtra(AddEditBudgetActivity.EXTRA_ID, latestBudget.getIdBudgeta());
+                    intent.putExtra(AddEditBudgetActivity.EXTRA_IZNOS, latestBudget.getIznos());
+                    intent.putExtra(AddEditBudgetActivity.EXTRA_DATUM, latestBudget.getDatum());
+                    startActivityForResult(intent, EDIT_BUDGET_REQUEST);
                 }
             }
         });
@@ -113,7 +138,9 @@ public class MjeseciActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+
+
+    /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.menu_prikaz_mjeseci, menu);
@@ -138,5 +165,5 @@ public class MjeseciActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
+    }*/
 }

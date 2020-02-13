@@ -34,6 +34,8 @@ public class TroskoviActivity extends AppCompatActivity {
     public static final int EDIT_TROSAK_REQUEST = 2;
     public static final String EXTRA_DATUM =
             "com.example.evidencijatroskova.view.EXTRA_DATUM";
+    public Date sentMjesec;
+    public PrikazTroskovaAdapter prikazTroskovaAdapter;
 
     private TrosakViewModel trosakViewModel;
 
@@ -41,7 +43,6 @@ public class TroskoviActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_troskovi);
-        final Date sentMjesec;
 
         FloatingActionButton btnAddTrosak = findViewById(R.id.btnAddTrosak);
 
@@ -71,7 +72,7 @@ public class TroskoviActivity extends AppCompatActivity {
         rvTroskovi.setLayoutManager(new LinearLayoutManager(this));
         rvTroskovi.setHasFixedSize(true);
 
-        final PrikazTroskovaAdapter prikazTroskovaAdapter = new PrikazTroskovaAdapter();
+        prikazTroskovaAdapter = new PrikazTroskovaAdapter();
         rvTroskovi.setAdapter(prikazTroskovaAdapter);
 
 
@@ -79,7 +80,7 @@ public class TroskoviActivity extends AppCompatActivity {
         trosakViewModel.getAllTroskovi().observe(this, new Observer<List<Trosak>>() {
             @Override
             public void onChanged(List<Trosak> trosaks) {
-                trosakViewModel.getTroskoviByMonth(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                trosakViewModel.getTroskoviByMonthSortedByDateDesc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
                     @Override
                     public void onSuccess(List<Trosak> result) {
                         prikazTroskovaAdapter.submitList(result);
@@ -158,9 +159,53 @@ public class TroskoviActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case R.id.btnDeleteAllTroskove:
-                trosakViewModel.nukeTable();
-                Toast.makeText(this, "Table nuked!", Toast.LENGTH_SHORT).show();
+            case R.id.btnSortDateDesc:
+                trosakViewModel.getTroskoviByMonthSortedByDateDesc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
+                return true;
+            case R.id.btnSortDateAsc:
+                trosakViewModel.getTroskoviByMonthSortedByDateAsc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
+                return true;
+            case R.id.btnSortIznosDesc:
+                trosakViewModel.getTroskoviByMonthSortedByIznosDesc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
+                return true;
+            case R.id.btnSortIznosAsc:
+                trosakViewModel.getTroskoviByMonthSortedByIznosAsc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
+                return true;
+            case R.id.btnSortNazivDesc:
+                trosakViewModel.getTroskoviByMonthSortedByNazivDesc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
+                return true;
+            case R.id.btnSortNazivAsc:
+                trosakViewModel.getTroskoviByMonthSortedByNazivAsc(sentMjesec.getMonth(), new OnResult<List<Trosak>>() {
+                    @Override
+                    public void onSuccess(List<Trosak> result) {
+                        prikazTroskovaAdapter.submitList(result);
+                    }
+                });
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

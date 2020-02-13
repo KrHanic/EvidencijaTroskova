@@ -24,6 +24,21 @@ public interface TrosakDao {
     @Query("SELECT * FROM TROSKOVI ORDER BY datum DESC")
     LiveData<List<Trosak>> getAllTroskove();
 
-    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec")
-    List<Trosak> getTroskoviByMonth(String mjesec);
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY datum DESC")
+    List<Trosak> getTroskoviByMonthSortedByDateDesc(String mjesec);
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY datum ASC")
+    List<Trosak> getTroskoviByMonthSortedByDateAsc(String mjesec);
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY iznos DESC")
+    List<Trosak> getTroskoviByMonthSortedByIznosDesc(String mjesec);
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY iznos ASC")
+    List<Trosak> getTroskoviByMonthSortedByIznosAsc(String mjesec);
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY naziv DESC")
+    List<Trosak> getTroskoviByMonthSortedByNazivDesc(String mjesec);
+
+    @Query("SELECT * FROM TROSKOVI WHERE STRFTIME('%m', datum/1000, 'unixepoch') = :mjesec ORDER BY naziv ASC")
+    List<Trosak> getTroskoviByMonthSortedByNazivAsc(String mjesec);
 }

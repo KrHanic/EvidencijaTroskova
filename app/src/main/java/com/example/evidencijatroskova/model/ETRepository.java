@@ -51,9 +51,34 @@ public class ETRepository {
         return allTroskovi;
     }
 
-    public void getTroskoviByMonth(int mjesec, OnResult<List<Trosak>> onResultListener){
+    public void getTroskoviByMonthSortedByDateDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
         TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
-        new GetTroskoviByMonthAsyncTask(params,onResultListener).execute(params);
+        new GetTroskoviByMonthSortedByDateDescAsyncTask(params,onResultListener).execute(params);
+    }
+
+    public void getTroskoviByMonthSortedByDateAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthSortedByDateAscAsyncTask(params,onResultListener).execute(params);
+    }
+
+    public void getTroskoviByMonthSortedByIznosDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthSortedByIznosDescAsyncTask(params,onResultListener).execute(params);
+    }
+
+    public void getTroskoviByMonthSortedByIznosAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthSortedByIznosAscAsyncTask(params,onResultListener).execute(params);
+    }
+
+    public void getTroskoviByMonthSortedByNazivDesc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthSortedByNazivDescAsyncTask(params,onResultListener).execute(params);
+    }
+
+    public void getTroskoviByMonthSortedByNazivAsc(int mjesec, OnResult<List<Trosak>> onResultListener){
+        TroskoviByMonthParams params = new TroskoviByMonthParams(trosakDao, mjesec);
+        new GetTroskoviByMonthSortedByNazivAscAsyncTask(params,onResultListener).execute(params);
     }
 
     public void insertBudget(Budget budget){
@@ -152,11 +177,11 @@ public class ETRepository {
         }
     }
 
-    private static class GetTroskoviByMonthAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+    private static class GetTroskoviByMonthSortedByDateDescAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
         private TrosakDao trosakDao;
         public OnResult<List<Trosak>> onResultListener = null;
 
-        private GetTroskoviByMonthAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+        private GetTroskoviByMonthSortedByDateDescAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
             this.trosakDao = params.trosakDao;
             this.onResultListener = onResultListener;
         }
@@ -169,7 +194,142 @@ public class ETRepository {
             }else{
                 mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
             }
-            return trosakDao.getTroskoviByMonth(mjesec);
+            return trosakDao.getTroskoviByMonthSortedByDateDesc(mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
+        }
+    }
+
+    private static class GetTroskoviByMonthSortedByDateAscAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
+
+        private GetTroskoviByMonthSortedByDateAscAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+            this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonthSortedByDateAsc(mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
+        }
+    }
+
+    private static class GetTroskoviByMonthSortedByIznosDescAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
+
+        private GetTroskoviByMonthSortedByIznosDescAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+            this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonthSortedByIznosDesc(mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
+        }
+    }
+
+    private static class GetTroskoviByMonthSortedByIznosAscAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
+
+        private GetTroskoviByMonthSortedByIznosAscAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+            this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonthSortedByIznosAsc(mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
+        }
+    }
+
+    private static class GetTroskoviByMonthSortedByNazivDescAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
+
+        private GetTroskoviByMonthSortedByNazivDescAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+            this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonthSortedByNazivDesc(mjesec);
+        }
+
+        @Override
+        protected void onPostExecute(List<Trosak> trosaks) {
+            super.onPostExecute(trosaks);
+            onResultListener.onSuccess(trosaks);
+        }
+    }
+
+    private static class GetTroskoviByMonthSortedByNazivAscAsyncTask extends AsyncTask<TroskoviByMonthParams, Void, List<Trosak>>{
+        private TrosakDao trosakDao;
+        public OnResult<List<Trosak>> onResultListener = null;
+
+        private GetTroskoviByMonthSortedByNazivAscAsyncTask(TroskoviByMonthParams params, OnResult<List<Trosak>> onResultListener){
+            this.trosakDao = params.trosakDao;
+            this.onResultListener = onResultListener;
+        }
+
+        @Override
+        protected List<Trosak> doInBackground(TroskoviByMonthParams... troskoviByMonthParams) {
+            String mjesec = "";
+            if(troskoviByMonthParams[0].mjesec + 1 < 10){
+                mjesec = "0" + (troskoviByMonthParams[0].mjesec + 1);
+            }else{
+                mjesec = String.valueOf(troskoviByMonthParams[0].mjesec + 1);
+            }
+            return trosakDao.getTroskoviByMonthSortedByNazivAsc(mjesec);
         }
 
         @Override

@@ -11,66 +11,74 @@
         android:id="@+id/tvDatumValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvNaziv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDatumValue"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Naziv: "/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/naziv"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvNazivValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/tvNaziv"
         app:layout_constraintTop_toBottomOf="@+id/tvDatumValue"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvIznos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNaziv"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Iznos: "/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/iznos"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvIznosValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toEndOf="@+id/tvIznos"
         app:layout_constraintTop_toBottomOf="@+id/tvNazivValue"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvOpis"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvIznos"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:text="Opis: "/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:text="@string/opis"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tvOpisValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="8dp"
+        android:layout_marginStart="18dp"
         app:layout_constraintStart_toEndOf="@+id/tvOpis"
         app:layout_constraintTop_toBottomOf="@+id/tvIznosValue"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvOpisValue"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

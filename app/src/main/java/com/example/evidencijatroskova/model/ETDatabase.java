@@ -12,7 +12,7 @@ import com.example.evidencijatroskova.model.DAOs.TrosakDao;
 import com.example.evidencijatroskova.model.entities.Budget;
 import com.example.evidencijatroskova.model.entities.Trosak;
 
-@Database(entities = {Trosak.class, Budget.class}, version = 4, exportSchema = false)
+@Database(entities = {Trosak.class, Budget.class}, version = 5, exportSchema = false)
 public abstract class ETDatabase extends RoomDatabase {
 
     private static ETDatabase instance;

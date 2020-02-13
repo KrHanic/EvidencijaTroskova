@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">Evidencija troskova</string>
+    <string name="app_name">Evidencija troškova</string>
+    <string name="iznos">Iznos: </string>
+    <string name="naziv">Naziv: </string>
+    <string name="opis">Opis: </string>
+    <string name="dostupno">Dostupno: </string>
+    <string name="potroseno">Potrošeno: </string>
+    <string name="save">Save </string>
+    <string name="sortiraj">Sortiraj:</string>
+    <string name="datum_silazno">Datum silazno</string>
+    <string name="datum_uzlazno">Datum uzlazno</string>
+    <string name="iznos_silazno">Iznos silazno</string>
+    <string name="iznos_uzlazno">Iznos uzlazno</string>
+    <string name="naziv_silazno">Naziv silazno</string>
+    <string name="naziv_uzlazno">Naziv uzlazno</string>
 </resources>
